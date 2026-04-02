@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Librería Online{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #f39c12;
+            --light: #ecf0f1;
+            --dark: #1a252f;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--dark) 100%);
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white !important;
+        }
+        
+        .navbar-nav .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .search-box {
+            background: rgba(255,255,255,0.1);
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 200px;
+        }
+        
+        .search-box input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .search-box input:focus {
+            outline: none;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .card-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            padding-top: 140%;
+        }
+        
+        .card-img-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+        
+        .card:hover .card-img-wrapper img {
+            transform: scale(1.1);
+        }
+        
+        .card-img-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .card:hover .card-img-overlay {
+            opacity: 1;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary) 0%, #c0392b 100%);
+            border: none;
+            border-radius: 25px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(231,76,60,0.3) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+        
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: white;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
+        
+        .category-card {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .category-card.fiction { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .category-card.science { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .category-card.history { background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); }
+        .category-card.children { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer h5 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer a:hover {
+            color: var(--accent);
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .badge-stock {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .badge-stock.available {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .badge-stock.low {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .badge-stock.out {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .chatbot-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--secondary) 0%, #c0392b 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.4);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        
+        .chatbot-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .chatbot-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 380px;
+            height: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+            overflow: hidden;
+            flex-direction: column;
+        }
+        
+        .chatbot-window.show {
+            display: flex;
+            animation: slideUp 0.3s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 15px;
+            max-width: 80%;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message.bot {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-bottom-left-radius: 5px;
+        }
+        
+        .message.user {
+            background: var(--primary);
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .chatbot-input {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chatbot-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #eee;
+            border-radius: 25px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .chatbot-input input:focus {
+            border-color: var(--primary);
+        }
+        
+        .chatbot-input button {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .chatbot-input button:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+        }
+        
+        .cart-icon {
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--secondary);
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+        
+        .page-loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loader-book {
+            width: 60px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            border-radius: 5px 10px 10px 5px;
+            position: relative;
+            animation: bounce 1s ease-in-out infinite;
+        }
+        
+        .loader-book::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 5px;
+            bottom: 5px;
+            width: 2px;
+            background: #fff;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="page-loader">
+        <div class="loader-book"></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'libros:home' %}">
+                <i class="fas fa-book-open me-2"></i>Librería
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'libros:home' %}">
+                            <i class="fas fa-home me-1"></i>Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-bookmark me-1"></i>Categorías
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for categoria in categorias %}
+                            <li><a class="dropdown-item" href="{% url 'libros:por_categoria' categoria.id %}">{{ categoria.nombre }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'libros:contacto' %}">
+                            <i class="fas fa-envelope me-1"></i>Contacto
+                        </a>
+                    </li>
+                </ul>
+                <form class="d-flex align-items-center" action="{% url 'libros:buscar' %}" method="GET">
+                    <div class="search-box me-3">
+                        <i class="fas fa-search text-white"></i>
+                        <input type="text" name="q" placeholder="Buscar libros...">
+                    </div>
+                </form>
+                <div class="d-flex align-items-center gap-3">
+                    {% if user.is_authenticated and user.is_staff %}
+                        <a href="{% url 'libros:admin_panel' %}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-cog me-1"></i>Admin
+                        </a>
+                        <a href="{% url 'libros:admin_logout' %}" class="btn btn-outline-light btn-sm">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'libros:carrito' %}" class="cart-icon text-white">
+                            <i class="fas fa-shopping-cart fa-lg"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+
+    <div class="chatbot-btn" onclick="toggleChatbot()">
+        <i class="fas fa-comments"></i>
+    </div>
+    
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            <i class="fas fa-robot me-2"></i>
+            <span>Asistente Virtual</span>
+            <button class="btn-close btn-close-white ms-auto" onclick="toggleChatbot()"></button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="message bot">
+                ¡Hola! Soy tu asistente de librería. ¿En qué puedo ayudarte hoy?
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Escribe tu mensaje..." onkeypress="handleChatKey(event)">
+            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5><i class="fas fa-book-open me-2"></i>Librería Online</h5>
+                    <p>Tu destino favorito para descubrir nuevas historias. Encuentra los mejores libros de todos los géneros.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5>Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'libros:home' %}">Inicio</a></li>
+                        <li><a href="{% url 'libros:buscar' %}">Catálogo</a></li>
+                        <li><a href="{% url 'libros:contacto' %}">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5>Contacto</h5>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>Calle Principal 123</p>
+                    <p><i class="fas fa-phone me-2"></i>+1 234 567 890</p>
+                    <p><i class="fas fa-envelope me-2"></i>info@libreria.com</p>
+                </div>
+            </div>
+            <hr style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 Librería Online. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.page-loader').classList.add('hidden');
+            }, 500);
+        });
+        
+        function toggleChatbot() {
+            const window = document.getElementById('chatbotWindow');
+            window.classList.toggle('show');
+        }
+        
+        function handleChatKey(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            addMessage(message, 'user');
+            input.value = '';
+            
+            setTimeout(function() {
+                addMessage('Escribiendo...', 'bot');
+            }, 500);
+            
+            fetch('{% url "libros:chatbot" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ mensaje: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const messages = document.getElementById('chatMessages');
+                messages.removeChild(messages.lastChild);
+                addMessage(data.respuesta, 'bot');
+            })
+            .catch(error => {
+                const messages = document.getElementById('chatMessages');
+                messages.removeChild(messages.lastChild);
+                addMessage('Lo siento, estoy teniendo problemas. ¿Puedes repetir?', 'bot');
+            });
+        }
+        
+        function addMessage(text, sender) {
+            const messages = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = `message ${sender}`;
+            div.textContent = text;
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
+        }
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

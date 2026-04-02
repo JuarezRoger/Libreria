@@ -1,0 +1,6 @@
+{% extends 'repuestos/base.html' %}
+{% block content %}
+<p>¿Eliminar {{ object }}?</p>
+<form method="post">{% csrf_token %}<button type="submit">Confirmar</button></form>
+<a href="{% url 'repuestos:list' %}">Cancelar</a>
+{% endblock %}

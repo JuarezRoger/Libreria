@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Inventario{% endblock  %}
+
+{% block container %}
+
+    <div class="container mt-4">
+        <h1>Bienvenido a la sección de inventario</h1>
+        <p>Aqui vamos a poder gestionar los repuestos del inventario</p>
+    </div>
+    <div class="container mt-4">
+        <h2>Lista de Repuestos en Inventario</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Ubicación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for repuesto in repuestos %}
+                <tr>
+                    <td>{{ repuesto.id }}</td>
+                    <td>{{ repuesto.nombre }}</td>
+                    <td>{{ repuesto.cantidad }}</td>
+                    <td>{{ repuesto.ubicacion }}</td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-primary">Editar</a>
+                        <a href="#" class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">No hay repuestos en el inventario.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock  %}

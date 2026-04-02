@@ -1,0 +1,20 @@
+{% extends 'repuestos/base.html' %}
+{% block content %}
+<a href="{% url 'repuestos:create' %}">Nuevo Repuesto</a>
+<table>
+  <tr><th>Categoría</th><th>Parte</th><th>Nombre</th><th>Acciones</th></tr>
+  {% for rep in repuestos %}
+  <tr>
+    <td>{{ rep.categoria.nombre }}</td>
+    <td>{{ rep.numero_parte }}</td>
+    <td>{{ rep.nombre }}</td>
+    <td>
+      <a href="{% url 'repuestos:update' rep.pk %}">Editar</a>
+      <a href="{% url 'repuestos:delete' rep.pk %}">Eliminar</a>
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="4">Sin repuestos.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

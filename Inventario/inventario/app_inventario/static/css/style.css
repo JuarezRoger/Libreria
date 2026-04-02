@@ -1,0 +1,56 @@
+body {
+    min-height: 100vh;
+}
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 220px;
+    background: #212529;
+    color: #fff;
+    transition: width 0.3s;
+    z-index: 1040;
+}
+.sidebar.collapsed {
+    width: 60px;
+}
+.sidebar .nav-link {
+    color: #fff;
+    white-space: nowrap;
+}
+.sidebar .nav-link .sidebar-text {
+    transition: opacity 0.3s;
+    opacity: 1;
+}
+.sidebar.collapsed .sidebar-text {
+    opacity: 0;
+}
+.sidebar .toggle-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    margin: 10px 0 10px 10px;
+}
+.main-content {
+    margin-left: 220px;
+    transition: margin-left 0.3s;
+}
+.main-content.sidebar-collapsed {
+    margin-left: 60px;
+}
+
+/* Dashboard styles */
+.dashboard-card {
+    margin-bottom: 0.75rem;
+}
+.dashboard-card .card {
+    min-height: 140px;
+}
+.card-header .card-title {
+    font-size: 0.95rem;
+}
+.remove-dashboard-btn {
+    border: none;
+}

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Carrito de Compras - Librería Online{% endblock %}
+
+{% block content %}
+<div class="py-5">
+    <div class="container">
+        <h1 class="section-title"><i class="fas fa-shopping-cart me-3"></i>Tu Carrito</h1>
+        
+        {% if items %}
+        <div class="row mt-5">
+            <div class="col-lg-8">
+                {% for item in items %}
+                <div class="card border-0 shadow-lg mb-3" style="border-radius: 15px;">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-2">
+                                {% if item.libro.portada %}
+                                <img src="{{ item.libro.portada.url }}" alt="{{ item.libro.titulo }}" class="img-fluid rounded" style="width: 80px; height: 100px; object-fit: cover;">
+                                {% else %}
+                                <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width: 80px; height: 100px;">
+                                    <i class="fas fa-book text-muted"></i>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4">
+                                <h5 class="mb-1">{{ item.libro.titulo }}</h5>
+                                <p class="text-muted mb-0">{{ item.libro.autor }}</p>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <span class="text-primary fw-bold">${{ item.libro.precio }}</span>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <span class="badge bg-secondary">{{ item.cantidad }}</span>
+                            </div>
+                            <div class="col-md-1 text-center">
+                                <span class="fw-bold">${{ item.subtotal }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-lg" style="border-radius: 20px;">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-4">Resumen del Pedido</h4>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal ({{ items|length }} items)</span>
+                            <span>${{ total }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Envío</span>
+                            <span class="text-success">Gratis</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-4">
+                            <span class="h5 fw-bold">Total</span>
+                            <span class="h5 fw-bold text-primary">${{ total }}</span>
+                        </div>
+                        <button class="btn btn-primary w-100 btn-lg">
+                            <i class="fas fa-credit-card me-2"></i>Proceder al Pago
+                        </button>
+                        <a href="{% url 'libros:home' %}" class="btn btn-outline-secondary w-100 mt-3">
+                            <i class="fas fa-arrow-left me-2"></i>Seguir Comprando
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-shopping-basket text-muted" style="font-size: 5rem;"></i>
+            <h3 class="mt-4 text-muted">Tu carrito está vacío</h3>
+            <p class="text-muted">¡Explora nuestro catálogo y encuentra tu próxima lectura!</p>
+            <a href="{% url 'libros:home' %}" class="btn btn-primary btn-lg mt-3">
+                <i class="fas fa-book me-2"></i>Ver Catálogo
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

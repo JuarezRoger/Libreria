@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mi Aplicación de Inventario{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <button class="toggle-btn" onclick="toggleSidebar()" title="Expandir/Contraer">
+            <i class="bi bi-list"></i>
+        </button>
+        <ul class="nav flex-column mt-3">
+            <li class="nav-item">
+                <a href="{% url 'app_inventario:inicio' %}" class="nav-link active">
+                    <i class="bi bi-house-door"></i>
+                    <span class="sidebar-text ms-2">Home</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'app_inventario:reportes' %}" class="nav-link">
+                    <i class="bi bi-speedometer2"></i>
+                    <span class="sidebar-text ms-2">Reportes</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'app_inventario:repuestos_inventario' %}" class="nav-link">
+                    <i class="bi bi-bag"></i>
+                    <span class="sidebar-text ms-2">Inventario</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'app_inventario:historial_tecnico' %}" class="nav-link">
+                    <i class="bi bi-people"></i>
+                    <span class="sidebar-text ms-2">Historial Tecnico</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'app_inventario:lista_de_repuestos' %}" class="nav-link">
+                    <i class="bi bi-box"></i>
+                    <span class="sidebar-text ms-2">Todos los repuestos</span>
+                </a>
+            </li>
+        </ul>
+        <hr class="text-white">
+        <div class="dropdown ms-2">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://avatars.githubusercontent.com/u/48338538?v=4" alt="" width="32" height="32" class="rounded-circle me-2">
+                <span class="sidebar-text"><strong>Ajustes</strong></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="#">New project...</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Sign out</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="container mt-4">
+            {% block container %}
+                
+            {% endblock %}
+        </div>
+    </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main-content');
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('sidebar-collapsed');
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/dashboard.js' %}"></script>
+
+</body>
+</html>

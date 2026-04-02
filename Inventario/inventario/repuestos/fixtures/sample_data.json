@@ -1,0 +1,16 @@
+[
+  {"model": "repuestos.categoria", "pk": 1, "fields": {"nombre": "Electrónica", "descripcion": "Componentes electrónicos"}},
+  {"model": "repuestos.categoria", "pk": 2, "fields": {"nombre": "Mecánica", "descripcion": "Piezas mecánicas"}},
+
+  {"model": "repuestos.repuesto", "pk": 1, "fields": {"categoria": 1, "numero_parte": "R001", "nombre": "Resistor 1k", "descripcion": "Resistor de carbón 1kΩ", "unidad_medida": "pcs", "minimo_reposicion": 10, "activo": true}},
+  {"model": "repuestos.repuesto", "pk": 2, "fields": {"categoria": 1, "numero_parte": "C001", "nombre": "Capacitor 10uF", "descripcion": "Condensador electrolítico 10µF", "unidad_medida": "pcs", "minimo_reposicion": 5, "activo": true}},
+  {"model": "repuestos.repuesto", "pk": 3, "fields": {"categoria": 2, "numero_parte": "B001", "nombre": "Bolt M8", "descripcion": "Tornillo hexagonal M8", "unidad_medida": "pcs", "minimo_reposicion": 20, "activo": true}},
+  {"model": "repuestos.repuesto", "pk": 4, "fields": {"categoria": 2, "numero_parte": "N001", "nombre": "Nut M8", "descripcion": "Tuerca hexagonal M8", "unidad_medida": "pcs", "minimo_reposicion": 20, "activo": true}},
+  {"model": "repuestos.repuesto", "pk": 5, "fields": {"categoria": 1, "numero_parte": "D001", "nombre": "Diodo 1N4007", "descripcion": "Diodo rectificador 1A", "unidad_medida": "pcs", "minimo_reposicion": 15, "activo": true}},
+
+  {"model": "repuestos.movimientostock", "pk": 1, "fields": {"repuesto": 1, "tipo": "ENT", "cantidad": 100, "fecha": "2026-03-11T10:00:00Z", "usuario": null, "referencia": "", "notas": "Ingreso inicial"}},
+  {"model": "repuestos.movimientostock", "pk": 2, "fields": {"repuesto": 1, "tipo": "SAL", "cantidad": 20, "fecha": "2026-03-11T11:00:00Z", "usuario": null, "referencia": "Pedido", "notas": "Salida por pedido"}},
+  {"model": "repuestos.movimientostock", "pk": 3, "fields": {"repuesto": 2, "tipo": "ENT", "cantidad": 50, "fecha": "2026-03-11T09:30:00Z", "usuario": null, "referencia": "", "notas": "Ingreso lote"}},
+  {"model": "repuestos.movimientostock", "pk": 4, "fields": {"repuesto": 3, "tipo": "ENT", "cantidad": 200, "fecha": "2026-03-11T08:45:00Z", "usuario": null, "referencia": "" , "notas": "Ingreso inicial"}},
+  {"model": "repuestos.movimientostock", "pk": 5, "fields": {"repuesto": 4, "tipo": "ENT", "cantidad": 150, "fecha": "2026-03-11T08:50:00Z", "usuario": null, "referencia": "" , "notas": "Ingreso inicial"}}
+]

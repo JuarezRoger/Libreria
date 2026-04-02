@@ -1,0 +1,16 @@
+{% extends 'repuestos/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2>Dashboard KPI</h2>
+<ul>
+  <li>Total repuestos: {{ total_repuestos }}</li>
+  <li>Total movimientos: {{ total_movimientos }}</li>
+</ul>
+<h3>Stock por repuesto</h3>
+<table>
+  <tr><th>Repuesto</th><th>Stock</th></tr>
+  {% for rep in stock_por_repuesto %}
+  <tr><td>{{ rep.nombre }}</td><td>{{ rep.stock }}</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

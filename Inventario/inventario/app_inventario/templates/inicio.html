@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Inicio{% endblock  %}
+
+{% block container %}
+
+    <h1>Bienvenido al sistema de inventario</h1>
+    <div class="d-flex justify-content-between align-items-center my-4">
+        <h2>Dashboards</h2>
+        <div>
+            <button id="addDashboardBtn" class="btn btn-primary btn-sm">Agregar dashboard</button>
+        </div>
+    </div>
+
+    <div id="dashboardsContainer" class="row g-3">
+        <!-- Dashboards dinámicos se agregarán aquí -->
+    </div>
+
+    <!-- Modal template para nueva tarjeta -->
+    <template id="dashboardCardTemplate">
+        <div class="col-12 col-md-6 col-lg-4 dashboard-card">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <strong class="card-title">Nuevo dashboard</strong>
+                    <div>
+                        <button class="btn btn-sm btn-danger remove-dashboard-btn" title="Eliminar"><i class="bi bi-trash"></i></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Contenido del widget (gráfica, métricas, tablas, etc.)</p>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    
+
+{% endblock  %}
